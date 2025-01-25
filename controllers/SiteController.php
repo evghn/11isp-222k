@@ -125,4 +125,26 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionRegister()
+    {
+        $model = new \app\models\RegisterForm();
+        if ($model->load(Yii::$app->request->post())) {
+            
+            // $user = $model->userRegister();
+            // if ($user) {
+            //     Yii::debug($user->attributes);
+            // }
+
+            
+            if ($user = $model->userRegister()) {
+                Yii::$app->user->login($user);
+                Yii::$app->session->setFlash('success', 'Пользователь успешно зарегистрирован!');
+                return $this->redirect('/');
+                // Yii::debug($user->attributes);
+            }
+            
+        }
+        return $this->render('register', ['model' => $model,]);
+    }
 }

@@ -11,10 +11,9 @@ use yii\bootstrap5\ActiveForm;
 
     <h3>Регистрация</h3>
 
-
     <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'login') ?>
+        <?= $form->field($model, 'login')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'full_name') ?>
         <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::class, [
@@ -26,4 +25,4 @@ use yii\bootstrap5\ActiveForm;
         </div>
     <?php ActiveForm::end(); ?>
 
-</div><!-- site-register -->
+</div>

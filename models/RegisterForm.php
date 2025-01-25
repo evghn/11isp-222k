@@ -41,7 +41,6 @@ class RegisterForm extends Model
             ['phone', 'match', 'pattern' => '/^\+7\([\d]{3}\)-[\d]{3}-[\d]{2}-[\d]{2}$/', 'message' => 'Телефон в формате +7(XXX)-XXX-XX-XX'],
             [['login'], 'unique', 'targetClass' => User::class],
 
-
             // email has to be a valid email address
             ['email', 'email'],
             
