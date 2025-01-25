@@ -53,7 +53,14 @@ $config = [
         ],
         
     ],
+
     'params' => $params,
+    'modules' => [
+        'account' => [
+            'class' => 'app\modules\account\Module',
+            'defaultRoute' => 'application/index' //controller/action
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

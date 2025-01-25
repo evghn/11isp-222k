@@ -80,7 +80,7 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             Yii::$app->session->setFlash('success', 'Пользователь успешно авторизован!');
-            return $this->goBack();
+            return $this->redirect('/account');
         }
 
         $model->password = '';
@@ -143,7 +143,7 @@ class SiteController extends Controller
             if ($user = $model->userRegister()) {
                 Yii::$app->user->login($user);
                 Yii::$app->session->setFlash('success', 'Пользователь успешно зарегистрирован!');
-                return $this->redirect('/');
+                return $this->redirect('/account');
                 // Yii::debug($user->attributes);
             }
             
