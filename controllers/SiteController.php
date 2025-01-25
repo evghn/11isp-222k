@@ -75,8 +75,11 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        // var_dump(Yii::$app->security->generatePasswordHash('password')); die;
+
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Yii::$app->session->setFlash('success', 'Пользователь успешно авторизован!');
             return $this->goBack();
         }
 
