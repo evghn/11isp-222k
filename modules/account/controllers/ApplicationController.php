@@ -41,7 +41,9 @@ class ApplicationController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Application::find(),
+            'query' => Application::find()
+                ->where(['user_id' => Yii::$app->user->id])
+                ,
             /*
             'pagination' => [
                 'pageSize' => 50
