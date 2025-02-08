@@ -3,7 +3,9 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Application;
+use app\models\Status;
 use app\modules\admin\models\ApplicationSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -101,6 +103,66 @@ class ApplicationController extends Controller
             'model' => $model,
         ]);
     }
+
+
+    public function actionWork($id)
+    {
+        if ($model = $this->findModel($id)) {
+            $model->status_id = Status::getStatusId('В работе');
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Заявка передана в работу');
+            }
+        }
+
+        return $this->redirect('index');
+    }
+
+
+    public function actionApply($id)
+    {
+        if ($model = $this->findModel($id)) {
+            $model->status_id = Status::getStatusId('Выполнено');
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 
+                    'Заявка №' 
+                        . $model->id 
+                        . 'от ' . Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y')
+                        . ' выполнена!');
+            }
+        }
+
+        return $this->redirect('index');
+    }
+
+
+    
+
+
+    public function actionCancel($id)
+    {
+        if ($model = $this->findModel($id)) {
+            $model->scenario = Application::SCENARIO_CANCEL;
+            
+            if ($this->request->isPost && $model->load($this->request->post())) {
+
+                $model->status_id = Status::getStatusId('Отменено');
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('warning', 'Заявка отменена');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+    
+            return $this->render('cancel', [
+                'model' => $model,
+            ]);
+        }
+
+        return $this->redirect('index');
+    }
+    
+
+
+    
 
     /**
      * Deletes an existing Application model.
