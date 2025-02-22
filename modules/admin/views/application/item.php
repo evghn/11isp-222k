@@ -16,8 +16,8 @@ use yii\helpers\VarDumper;
     <p class="card-text">Клиент: <span class="fs-5"><?= $model->user->full_name ?></span></p>
 
 
-    <p class="card-text">Наименование услуги: <span class="fs-5"><?= $model->service->title ?></span></p>
-    <p class="card-text fs-5"><span class="text-black-50">Наименование услуги: </span><?= $model->service->title ?></p>
+    <p class="card-text">Наименование услуги: <span class="fs-5"><?= $model->service?->title ?></span></p>
+    <p class="card-text fs-5"><span class="text-black-50">Наименование услуги: </span><?= $model->service?->title ?></p>
 
 
     <p class="card-text fs-5"><span class="text-black-50">Статус: </span><?= $model->status->title ?></p>
